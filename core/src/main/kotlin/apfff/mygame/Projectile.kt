@@ -7,7 +7,8 @@ import ktx.math.times
 
 interface Projectile {
   val pos: Vector2
-  var velocity: Vector2
+  val prevPos: Vector2
+  val velocity: Vector2
 
   fun apply(force: Vector2)
 

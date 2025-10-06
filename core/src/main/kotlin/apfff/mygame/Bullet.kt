@@ -2,12 +2,8 @@ package apfff.mygame
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
-import com.badlogic.gdx.math.Circle
-import com.badlogic.gdx.math.Shape2D
 import com.badlogic.gdx.math.Vector2
-import ktx.math.plus
 import ktx.math.div
-import ktx.math.times
 
 class Bullet(
   override val pos: Vector2,
@@ -17,15 +13,17 @@ class Bullet(
   var rotation: Float = 0f, //degrees turned per second
   var color: Color = Color.WHITE
 ): Projectile {
-  override var velocity: Vector2 = Vector2()
+  override val prevPos: Vector2 = pos.cpy()
+  override val velocity: Vector2 = Vector2()
 
   override fun apply(force: Vector2){
-    velocity += force/mass
+    velocity.add(force/mass)
   }
 
   override fun step(dt: Float) {
+    prevPos.set(pos)
     velocity.rotateDeg(rotation * dt)
-    velocity *= 1 - drag * dt
+    velocity.scl(1 - drag * dt)
     pos.apply {
       x += dt * velocity.x
       y += dt * velocity.y

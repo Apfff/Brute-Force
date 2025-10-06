@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+import com.badlogic.gdx.math.MathUtils
 import ktx.app.clearScreen
 import ktx.assets.disposeSafely
 
@@ -14,6 +15,7 @@ class GraphicsEngine(
   private val shapeRenderer = ShapeRenderer()
 
   fun draw(){
+    val alpha = gameEngine.getAlpha()
     val projectiles = gameEngine.getProjectiles()
     val impulses = gameEngine.getImpulses()
 
@@ -22,11 +24,12 @@ class GraphicsEngine(
     Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)
     shapeRenderer.begin(ShapeRenderer.ShapeType.Filled)
     for (projectile in projectiles) {
+
       if(projectile is Bullet){
         shapeRenderer.color = projectile.color
         shapeRenderer.circle(
-          projectile.pos.x,
-          projectile.pos.y,
+          MathUtils.lerp(projectile.prevPos.x, projectile.pos.x, alpha),
+          MathUtils.lerp(projectile.prevPos.y, projectile.pos.y, alpha),
           projectile.radius
         )
       }

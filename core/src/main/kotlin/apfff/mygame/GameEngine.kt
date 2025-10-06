@@ -67,6 +67,10 @@ class GameEngine(
     return physicsService.getImpulses()
   }
 
+  fun getAlpha(): Float{
+    return timeAccumulation / tickDt
+  }
+
   fun reset(){
     timeAccumulation = 0f
     projectiles.clear()

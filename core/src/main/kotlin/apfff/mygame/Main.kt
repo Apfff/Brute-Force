@@ -14,7 +14,7 @@ class Main : KtxGame<KtxScreen>() {
 }
 
 class FirstScreen : KtxScreen {
-  private val gameEngine = GameEngine(60)
+  private val gameEngine = GameEngine(10)
   private val graphicsEngine = GraphicsEngine(gameEngine)
   private val inputHandler = InputHandler(gameEngine)
 
