@@ -1,4 +1,4 @@
-package apfff.mygame
+package apfff.mygame.impulse
 
 import com.badlogic.gdx.math.Vector2
 

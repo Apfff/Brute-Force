@@ -1,12 +1,11 @@
 package apfff.mygame
 
+import apfff.mygame.impulse.Impulse
 import apfff.mygame.projectile.Projectile
 import com.badlogic.gdx.Gdx
-import kotlin.apply
-import kotlin.compareTo
 
 class GameEngine(
-  val tps: Int
+  tps: Int
 ) {
   private val tickDt: Float = 1f/tps
   private var timeAccumulation = 0f
