@@ -1,5 +1,6 @@
 package apfff.mygame
 
+import apfff.mygame.impulse.Explosion
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
@@ -24,15 +25,13 @@ class GraphicsEngine(
     Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)
     shapeRenderer.begin(ShapeRenderer.ShapeType.Filled)
     for (projectile in projectiles) {
+      shapeRenderer.color = projectile.color
+      shapeRenderer.circle(
+        MathUtils.lerp(projectile.prevPos.x, projectile.pos.x, alpha),
+        MathUtils.lerp(projectile.prevPos.y, projectile.pos.y, alpha),
+        projectile.radius
+      )
 
-      if(projectile is Bullet){
-        shapeRenderer.color = projectile.color
-        shapeRenderer.circle(
-          MathUtils.lerp(projectile.prevPos.x, projectile.pos.x, alpha),
-          MathUtils.lerp(projectile.prevPos.y, projectile.pos.y, alpha),
-          projectile.radius
-        )
-      }
     }
     for (impulse in impulses){
       if(impulse is Explosion){

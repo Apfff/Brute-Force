@@ -1,8 +1,9 @@
 package apfff.mygame
 
+import apfff.mygame.impulse.Impulse
+import apfff.mygame.projectile.Projectile
 import com.badlogic.gdx.math.Vector2
 import ktx.math.plusAssign
-import kotlin.ranges.step
 
 class PhysicsService(
   val tickDt: Float,
@@ -40,7 +41,7 @@ class PhysicsService(
 
   fun applyForces(){
     for (projectile in projectiles) {
-      projectile.apply(computeForcesAt(projectile.pos))
+      projectile.applyForce(computeForcesAt(projectile.pos))
     }
     resetImpulses()
   }

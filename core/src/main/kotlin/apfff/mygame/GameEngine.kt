@@ -1,5 +1,6 @@
 package apfff.mygame
 
+import apfff.mygame.projectile.Projectile
 import com.badlogic.gdx.Gdx
 import kotlin.apply
 import kotlin.compareTo
