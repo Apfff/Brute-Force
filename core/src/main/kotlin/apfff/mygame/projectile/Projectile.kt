@@ -11,6 +11,7 @@ class Projectile (
   val pos: Vector2,
   var radius: Float,
   val mass: Float = 1f,
+  val ttl: Int? = null, //in game ticks
   val color: Color = Color.WHITE,
   val physicsComponents: ArrayList<PhysicsComponent> = ArrayList(),
   val behaviorComponents: ArrayList<BehaviorComponent> = ArrayList() //for like homing
