@@ -10,7 +10,7 @@ import ktx.math.div
 
 class Projectile (
   val pos: Vector2,
-  val radius: Float,
+  var radius: Float,
   val mass: Float = 1f,
   val color: Color = Color.WHITE,
   val physicsComponents: ArrayList<PhysicsComponent> = ArrayList(),
@@ -19,6 +19,8 @@ class Projectile (
 
   val prevPos: Vector2 = pos.cpy()
   val velocity: Vector2 = Vector2()
+  val baseRadius = radius
+  var scale: Float = 1f
 
   init {
     orderPhysicsComponents(physicsComponents)
@@ -30,6 +32,7 @@ class Projectile (
 
   fun step(dt: Float){
     prevPos.set(pos)
+    radius = baseRadius * scale
     for(pc in physicsComponents){
       pc.step(velocity, dt)
     }
