@@ -1,11 +1,12 @@
 package apfff.mygame.projectile
 
 import apfff.mygame.projectile.components.DragComponent
-import apfff.mygame.projectile.components.PhysicsComponent
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.math.Vector
 import com.badlogic.gdx.math.Vector2
 
-object Projectiles {
+object ProjectileFactory {
   val basicBullet = { pos : Vector2 ->
     Projectile(
       pos = pos,
@@ -31,4 +32,16 @@ object Projectiles {
     )
   }
 
+  fun create(type: (Vector2) -> Projectile, pos: Vector2): Projectile {
+    return type(pos)
+  }
+  fun createAtMousePos(type: (Vector2) -> Projectile): Projectile {
+    return create(
+      type,
+      Vector2(
+        Gdx.input.x.toFloat(),
+        Gdx.graphics.height - Gdx.input.y.toFloat()
+      )
+    )
+  }
 }
