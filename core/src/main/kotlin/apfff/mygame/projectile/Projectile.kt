@@ -9,9 +9,10 @@ import ktx.math.div
 
 class Projectile (
   val pos: Vector2,
-  var radius: Float,
+  radius: Float,
+  ttl: Int? = null, //in game ticks
+  scale: Float = 1f,
   val mass: Float = 1f,
-  val ttl: Int? = null, //in game ticks
   val color: Color = Color.WHITE,
   val physicsComponents: ArrayList<PhysicsComponent> = ArrayList(),
   val behaviorComponents: ArrayList<BehaviorComponent> = ArrayList() //for like homing
@@ -20,7 +21,9 @@ class Projectile (
   val prevPos: Vector2 = pos.cpy()
   val velocity: Vector2 = Vector2()
   val baseRadius = radius
-  var scale: Float = 1f
+  var scale: Float = scale; private set
+  var radius: Float = radius; private set
+  var ttl: Int? = ttl; private set
 
   init {
     orderPhysicsComponents(physicsComponents)
@@ -43,6 +46,7 @@ class Projectile (
       x += dt * velocity.x
       y += dt * velocity.y
     }
+    ttl = ttl?.minus(1)
   }
 }
 
