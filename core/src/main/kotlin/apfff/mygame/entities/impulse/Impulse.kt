@@ -1,7 +1,6 @@
 package apfff.mygame.entities.impulse
 
 import apfff.mygame.entities.PhysicEntity
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
 import ktx.math.minus
@@ -24,7 +23,7 @@ class Impulse (
     if(distance > radius){
       return Vector2()
     }
-    val distanceFrac = distance / radius
+    val distanceFrac = (distance / radius).coerceIn(0f,1f)
     val magnitude = strength * falloff(distanceFrac)
     return dir.nor() * (magnitude)
   }
