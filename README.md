@@ -10,7 +10,7 @@ This project was generated with a Kotlin project template that includes Kotlin a
 - `lwjgl3`: Primary desktop platform using LWJGL3; was called 'desktop' in older docs.
 
 ## Versions
-Java SDK 17
+SDK: Java Version 17.0.5
 
 ## Gradle
 
