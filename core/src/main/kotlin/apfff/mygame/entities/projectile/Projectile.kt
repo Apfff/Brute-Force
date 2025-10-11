@@ -1,11 +1,11 @@
-package apfff.mygame.projectile
+package apfff.mygame.entities.projectile
 
 
-import apfff.mygame.PhysicEntity
-import apfff.mygame.TriggerEvent
-import apfff.mygame.projectile.components.BehaviorComponent
-import apfff.mygame.projectile.components.PhysicsComponent
-import apfff.mygame.projectile.components.orderPhysicsComponents
+import apfff.mygame.entities.PhysicEntity
+import apfff.mygame.entities.projectile.TriggerEvent
+import apfff.mygame.entities.projectile.components.BehaviorComponent
+import apfff.mygame.entities.projectile.components.PhysicsComponent
+import apfff.mygame.entities.projectile.components.orderPhysicsComponents
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
 import ktx.math.div
@@ -13,7 +13,7 @@ import ktx.math.div
 class Projectile (
   val pos: Vector2,
   radius: Float,
-  scale: Float = 1f,
+  var scale: Float = 1f,
   ttl: Float? = null, //in seconds
   val mass: Float = 1f,
   val color: Color = Color.WHITE,
@@ -25,7 +25,6 @@ class Projectile (
   val prevPos: Vector2 = pos.cpy()
   val velocity: Vector2 = Vector2()
   val baseRadius = radius
-  var scale: Float = scale; private set
   var radius: Float = radius; private set
   var ttl: Float? = ttl; private set
 

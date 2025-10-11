@@ -1,6 +1,6 @@
 package apfff.mygame
 
-import apfff.mygame.impulse.Explosion
+import apfff.mygame.entities.impulse.Impulse
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
@@ -34,7 +34,7 @@ class GraphicsEngine(
 
     }
     for (impulse in impulses){
-      if(impulse is Explosion){
+      if(impulse is Impulse){
         shapeRenderer.color = impulse.color.cpy().apply { a = 0.5f }
         shapeRenderer.circle(
           impulse.pos.x,
@@ -47,7 +47,7 @@ class GraphicsEngine(
     shapeRenderer.begin(ShapeRenderer.ShapeType.Line)
     shapeRenderer.color = Color.YELLOW
     for (impulse in impulses){
-      if(impulse is Explosion){
+      if(impulse is Impulse){
         shapeRenderer.color = impulse.color
         shapeRenderer.circle(
           impulse.pos.x,

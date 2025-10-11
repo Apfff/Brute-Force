@@ -1,6 +1,6 @@
-package apfff.mygame.projectile.components
+package apfff.mygame.entities.projectile.components
 
-import apfff.mygame.projectile.Projectile
+import apfff.mygame.entities.projectile.Projectile
 
 //how the projectile decides or generates forces
 //e.g.: homing, orbiting, boomerang return, wobble, delayed explosion

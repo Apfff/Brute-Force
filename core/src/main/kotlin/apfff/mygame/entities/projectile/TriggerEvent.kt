@@ -1,4 +1,4 @@
-package apfff.mygame
+package apfff.mygame.entities.projectile
 
 enum class TriggerEvent {
   SPAWN,

@@ -1,11 +1,11 @@
 package apfff.mygame
 
-import apfff.mygame.impulse.Impulse
-import apfff.mygame.projectile.Projectile
+import apfff.mygame.entities.impulse.Impulse
+import apfff.mygame.entities.projectile.Projectile
 import com.badlogic.gdx.math.Vector2
 import ktx.math.plusAssign
 
-class PhysicsService(
+class PhysicsEngine(
   val tickDt: Float,
   val projectiles: ArrayList<Projectile>
 ): Service {
@@ -19,8 +19,8 @@ class PhysicsService(
     }
   }
 
-  fun addImpulse(impulse: Impulse) {
-    impulseBuffer.add(impulse)
+  fun addImpulse(vararg impulse: Impulse) {
+    impulseBuffer.addAll(impulse)
   }
 
   fun resetImpulses(){

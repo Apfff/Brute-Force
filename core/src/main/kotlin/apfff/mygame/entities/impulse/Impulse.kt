@@ -1,5 +1,6 @@
-package apfff.mygame.impulse
+package apfff.mygame.entities.impulse
 
+import apfff.mygame.entities.PhysicEntity
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
@@ -7,15 +8,17 @@ import ktx.math.minus
 import ktx.math.times
 
 
-class Explosion (
+class Impulse (
   val pos: Vector2,
-  val strength: Float,
   val radius: Float,
+  val strength: Float,
   val falloff: (distanceFrac: Float) -> Float =  {1 - it},
   val color: Color = Color.YELLOW
-): Impulse {
+): PhysicEntity {
 
-  override fun computeForceAt(pos: Vector2): Vector2 {
+
+
+  fun computeForceAt(pos: Vector2): Vector2 {
     val dir = pos - this.pos.cpy()
     val distance = dir.len()
     if(distance > radius){
@@ -24,19 +27,5 @@ class Explosion (
     val distanceFrac = distance / radius
     val magnitude = strength * falloff(distanceFrac)
     return dir.nor() * (magnitude)
-  }
-
-  companion object {
-    fun mousePos(strength: Float, radius: Float, falloff: (distanceFrac: Float) -> Float =  {1 - it}, color: Color = Color.YELLOW) =
-      Explosion(
-        Vector2(
-          Gdx.input.x.toFloat(),
-          Gdx.graphics.height - Gdx.input.y.toFloat()
-        ),
-        strength,
-        radius,
-        falloff,
-        color
-      )
   }
 }

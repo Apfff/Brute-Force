@@ -1,4 +1,4 @@
-package apfff.mygame.projectile.components
+package apfff.mygame.entities.projectile.components
 
 import com.badlogic.gdx.math.Vector2
 
