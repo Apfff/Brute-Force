@@ -31,6 +31,15 @@ object ProjectileFactory {
     )
   }
 
+  val explodeBullet = { pos: Vector2 ->
+    Projectile(
+      pos = pos,
+      radius = 15f,
+      ttl = 1f,
+      color = Color.ROYAL
+    )
+  }
+
   fun create(type: (Vector2) -> Projectile, pos: Vector2): Projectile {
     return type(pos)
   }

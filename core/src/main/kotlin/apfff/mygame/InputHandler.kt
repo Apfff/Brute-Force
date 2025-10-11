@@ -13,27 +13,27 @@ class InputHandler(
 
   fun handleInputs(){
     if (Gdx.input.isKeyJustPressed(Input.Keys.Q)){
-      gameEngine.addPendingProjectile(
-        ProjectileFactory.createAtMousePos(ProjectileFactory.basicBullet)
+      gameEngine.addProjectile(
+        ProjectileFactory.createAtMousePos(ProjectileFactory.explodeBullet)
       )
     }
     if (Gdx.input.isKeyJustPressed(Input.Keys.W)){
-      gameEngine.addPendingProjectile(
+      gameEngine.addProjectile(
         ProjectileFactory.createAtMousePos(ProjectileFactory.heavyBullet)
       )
     }
     if (Gdx.input.isKeyJustPressed(Input.Keys.E)){
-      gameEngine.addPendingProjectile(
+      gameEngine.addProjectile(
         ProjectileFactory.createAtMousePos(ProjectileFactory.dragBullet)
       )
     }
     if (Gdx.input.isKeyJustPressed(Input.Keys.F)){
-      gameEngine.addPendingImpulse(
+      gameEngine.addImpulse(
         Explosion.mousePos(200f,80f)
       )
     }
     if (Gdx.input.isKeyJustPressed(Input.Keys.G)){
-      gameEngine.addPendingImpulse(
+      gameEngine.addImpulse(
         Explosion.mousePos(400f,140f,
           {(1- it).pow(3)},
           Color.CHARTREUSE

@@ -15,6 +15,8 @@ class GameEngine(
   private val pendingImpulsesBuffer = ArrayList<Impulse>()
   private var applyForcesBuffer = false //temp
 
+  private val destroyQueue = ArrayDeque<Pair<MutableCollection<out PhysicEntity>, PhysicEntity>>()
+
   private val physicsService = PhysicsService(tickDt, projectiles)
 
   fun update(dt: Float){
@@ -28,10 +30,13 @@ class GameEngine(
       }
       physicsService.step()
       //game state
-      projectiles.removeIf {
-        it.pos.x < 0 || it.pos.x > Gdx.graphics.width ||
-            it.pos.y < 0 || it.pos.y > Gdx.graphics.height
+      for(p in projectiles){
+        if(p.pos.x < 0 || p.pos.x > Gdx.graphics.width ||
+          p.pos.y < 0 || p.pos.y > Gdx.graphics.height){
+          p.trigger(TriggerEvent.OUT_OF_BOUNDS)
+        }
       }
+      destroyPhysicEntities()
 
       timeAccumulation -= tickDt
       timeAccumulation = timeAccumulation.coerceAtLeast(0f)
@@ -50,12 +55,30 @@ class GameEngine(
     applyForcesBuffer = false
   }
 
-  fun addPendingImpulse(impulse: Impulse) {
-    pendingImpulsesBuffer.add(impulse)
+  private fun destroyPhysicEntities(){
+    for ((list, entity) in destroyQueue){
+      if(!list.contains(entity)) continue
+      list.remove(entity)
+    }
+    destroyQueue.clear()
   }
-  fun addPendingProjectile(projectile: Projectile) {
-    pendingProjectilesBuffer.add(projectile)
+
+  fun addImpulse(vararg impulse: Impulse) {
+    pendingImpulsesBuffer.addAll(impulse)
   }
+  fun addProjectile(vararg projectile: Projectile) {
+    for (p in projectile){
+      p.on(TriggerEvent.EXPIRE){p -> removeProjectile(p)}
+      p.on(TriggerEvent.OUT_OF_BOUNDS){p -> removeProjectile(p)}
+    }
+    pendingProjectilesBuffer.addAll(projectile)
+  }
+  fun removeProjectile(vararg projectile: Projectile) {
+    for (p in projectile){
+      destroyQueue.addLast(projectiles to p)
+    }
+  }
+
   fun requestApplyForces(){
     applyForcesBuffer = true
   }

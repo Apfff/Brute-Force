@@ -1,5 +1,8 @@
 package apfff.mygame.projectile
 
+
+import apfff.mygame.PhysicEntity
+import apfff.mygame.TriggerEvent
 import apfff.mygame.projectile.components.BehaviorComponent
 import apfff.mygame.projectile.components.PhysicsComponent
 import apfff.mygame.projectile.components.orderPhysicsComponents
@@ -10,20 +13,21 @@ import ktx.math.div
 class Projectile (
   val pos: Vector2,
   radius: Float,
-  ttl: Int? = null, //in game ticks
   scale: Float = 1f,
+  ttl: Float? = null, //in seconds
   val mass: Float = 1f,
   val color: Color = Color.WHITE,
-  val physicsComponents: ArrayList<PhysicsComponent> = ArrayList(),
-  val behaviorComponents: ArrayList<BehaviorComponent> = ArrayList() //for like homing
-) {
+  val physicsComponents: ArrayList<PhysicsComponent> = arrayListOf(),
+  val behaviorComponents: ArrayList<BehaviorComponent> = arrayListOf(),
+  val triggers: MutableMap<TriggerEvent, MutableList<(Projectile) -> Unit>> = mutableMapOf()
+): PhysicEntity {
 
   val prevPos: Vector2 = pos.cpy()
   val velocity: Vector2 = Vector2()
   val baseRadius = radius
   var scale: Float = scale; private set
   var radius: Float = radius; private set
-  var ttl: Int? = ttl; private set
+  var ttl: Float? = ttl; private set
 
   init {
     orderPhysicsComponents(physicsComponents)
@@ -46,7 +50,17 @@ class Projectile (
       x += dt * velocity.x
       y += dt * velocity.y
     }
-    ttl = ttl?.minus(1)
+    ttl = ttl?.minus(dt)
+    if((ttl ?: 1f) <= 0f){
+      trigger(TriggerEvent.EXPIRE)
+    }
+  }
+
+  fun on(event: TriggerEvent, action: (Projectile) -> Unit) {
+    triggers.getOrPut(event) {mutableListOf()}.add(action)
+  }
+  fun trigger(event: TriggerEvent){
+    triggers[event]?.forEach { it(this) }
   }
 }
 
