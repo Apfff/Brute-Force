@@ -9,6 +9,9 @@ This project was generated with a Kotlin project template that includes Kotlin a
 - `core`: Main module with the application logic shared by all platforms.
 - `lwjgl3`: Primary desktop platform using LWJGL3; was called 'desktop' in older docs.
 
+## Versions
+SDK: Java Version 17.0.5
+
 ## Gradle
 
 This project uses [Gradle](https://gradle.org/) to manage dependencies.
